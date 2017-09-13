@@ -1,0 +1,29 @@
+#!/bin/bash
+#git debe estar instalado
+#cd /ruta/de/la/carpeta/contenedora
+
+# Instalacion de pip para isntalar los modulos python necesarios
+apt-get install python-pip
+
+#************************
+#MODULOS PARA LOS DRIVERS
+#************************
+
+#Display
+#--------
+#py-spidev
+cd display
+apt-get install python-dev
+git clone https://github.com/doceme/py-spidev.git
+cd py-spidev
+python setup.py install
+cd ..
+#png
+pip install pypng
+
+#?????????????????????????????
+#Verificar configuración raspi
+#para habilitar SPI
+#????????????????????????????? 
+
+echo "Fin (Aplausos)"
