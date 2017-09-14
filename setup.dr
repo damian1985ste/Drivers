@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# ***Ejecutar como root***
 #git debe estar instalado
 #cd /ruta/de/la/carpeta/contenedora
 
@@ -20,6 +22,14 @@ python setup.py install
 cd ..
 #png
 pip install pypng
+
+#RFID
+#-----
+#serial
+pip install pyserial
+#time
+pip install pytime
+
 
 #?????????????????????????????
 #Verificar configuración raspi

@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import spidev
 import png
 
@@ -128,7 +129,23 @@ class ST7920:
 				pass
 			x += cw
 	
-	def redraw(self, dx1=0, dy1=0, dx2=127, dy2=63):
+	def put_textB(self, s, x, y):
+		for c in s:
+			try:
+				font, cw, ch = self.fontsheet
+				char = font[ord(c)]
+				sy = 0
+				for row in char:
+					sx = 0
+					for px in row:
+						self.plot(x+sx, y+sy, px == 1)
+						sx += 1
+					sy += 1
+			except KeyError:
+				pass
+			x += cw
+      
+  def redraw(self, dx1=0, dy1=0, dx2=127, dy2=63):
 		for i in range(dy1, dy2+1):
 			self.send(0,0,[0x80 + i%32, 0x80 + ((dx1/16) + (8 if i>=32 else 0))]) # set address
 			self.send(1,0,self.fbuff[i][dx1/16:(dx2/8)+1])
