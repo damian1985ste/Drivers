@@ -1,7 +1,9 @@
 #!/usr/bin/python
 import spidev
 import png
+import os
 
+os.chdir('/home/pi/Documents/Drivers/display/')
 class ST7920:
 	def __init__(self):
 		self.spi = spidev.SpiDev()
@@ -19,8 +21,8 @@ class ST7920:
 		
 		self.set_rotation(0) # rotate to 0 degrees
 		
-		self.fontsheet = self.load_font_sheet("fontsheet.png", 6, 8)
-		
+		self.fontsheet = self.load_font_sheet('fontsheet.png', 6, 8)
+		#self.fontsheet = self.load_font_sheet('fontsheetB.png', 6, 8)		
 		self.clear()
 		self.redraw()
 	
@@ -138,14 +140,15 @@ class ST7920:
 				for row in char:
 					sx = 0
 					for px in row:
-						self.plot(x+sx, y+sy, px == 1)
+						self.plot(x+sx, y+sy, px != 1)
 						sx += 1
 					sy += 1
 			except KeyError:
 				pass
 			x += cw
-      
-  def redraw(self, dx1=0, dy1=0, dx2=127, dy2=63):
+
+	def redraw(self, dx1=0, dy1=0, dx2=127, dy2=63):
 		for i in range(dy1, dy2+1):
 			self.send(0,0,[0x80 + i%32, 0x80 + ((dx1/16) + (8 if i>=32 else 0))]) # set address
 			self.send(1,0,self.fbuff[i][dx1/16:(dx2/8)+1])
+      
