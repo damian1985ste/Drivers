@@ -11,6 +11,12 @@ apt-get install python-pip
 #MODULOS PARA LOS DRIVERS
 #************************
 
+#Comunes
+#time
+pip install pytime
+# Raspberry GPIO
+# no la instalamos viene con python
+
 #Display
 #--------
 #py-spidev
@@ -27,8 +33,6 @@ pip install pypng
 #-----
 #serial
 pip install pyserial
-#time
-pip install pytime
 
 
 #?????????????????????????????
