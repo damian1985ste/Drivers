@@ -17,7 +17,10 @@ class r_encoder:
     
   def btn_state(self):
     '''Esta funcion devuelve el estado instantaneo del boton'''
-    return False if self.gpio.input(self.btn) else return True
+    if self.gpio.input(self.btn):
+      return(False)
+    else: 
+      return(True)
   
   def btn_t_pres(self):
     '''Esta funcion devuelve el tiempo que el boton esta presionado. 
@@ -33,7 +36,25 @@ class r_encoder:
     else:
       #no esta presionado -1
       return -1
-        
+      
+  def btn_stat_pres(self,x_sec):
+    '''Esta fucion devuelve si el boton fue presionado solamente, si se 
+    mantuvo apretado x_sec segundos o si no esta prsionado. Retorna 2 en
+    caso que el boton se mantenga presionado, 1 si solo se presiono y -1
+    si no fue apretado'''
+    if self.btn_state():
+      rep = x_sec/0.01
+      k=0
+      while self.btn_state() and k<rep:
+        time.sleep(0.01)
+        k+=1
+      if k==rep:
+        return 2
+      else:
+        return 1
+    else:
+      return -1
+      
   def rot_encod(self, en1LastState = 1):
     '''Esta funcion devuelve el movimiento del encoder. 1 si se movio hacia 
     un lado y -1 si se movio al otro lado'''
@@ -44,7 +65,10 @@ class r_encoder:
         return(1,en1State)
       else:
         return(-1,en1State)
-        
+    else:
+      return(0,en1LastState)
+      
+          
   def cle_rot_enc_GPIO(self):
     '''Esta funcion lipia las configuraciones de los pines de la placa'''
     self.gpio.cleanup()
