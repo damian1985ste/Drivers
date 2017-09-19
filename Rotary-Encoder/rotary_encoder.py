@@ -56,15 +56,15 @@ class r_encoder:
       return -1
       
   def rot_encod(self, en1LastState = 1):
-    '''Esta funcion devuelve el movimiento del encoder. 1 si se movio hacia 
-    un lado y -1 si se movio al otro lado'''
+    '''Esta funcion devuelve el movimiento del encoder. 0.5 si se movio hacia 
+    un lado y -0.5 si se movio al otro lado'''
     en1State = self.gpio.input(self.en1)
     en2State = self.gpio.input(self.en2)
     if en1State != en1LastState:
       if en2State != en1State:
-        return(1,en1State)
+        return(0.5,en1State)
       else:
-        return(-1,en1State)
+        return(-0.5,en1State)
     else:
       return(0,en1LastState)
       
