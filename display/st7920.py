@@ -9,7 +9,7 @@ class ST7920:
 		self.spi = spidev.SpiDev()
 		self.spi.open(0,0)
 		self.spi.cshigh = True # use inverted CS
-		self.spi.max_speed_hz = 1800000 # set SPI clock to 1.8MHz, up from 125kHz
+		self.spi.max_speed_hz = 400000#1800000 # set SPI clock to 1.8MHz, up from 125kHz
 		
 		self.send(0,0,0x30) # basic instruction set
 		self.send(0,0,0x30) # repeated
