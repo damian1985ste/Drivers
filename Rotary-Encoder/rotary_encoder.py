@@ -62,9 +62,9 @@ class r_encoder:
     en2State = self.gpio.input(self.en2)
     if en1State != en1LastState:
       if en2State != en1State:
-        return(0.5,en1State)
+        return(-1,en1State)
       else:
-        return(-0.5,en1State)
+        return(1,en1State)
     else:
       return(0,en1LastState)
       
