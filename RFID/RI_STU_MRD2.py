@@ -30,8 +30,8 @@ class rfid:
     #se puede evaluar devolver valor si falla la escritura
     
   def read(self,k):
-    '''Esta función lee del puerto serial la cantidad k de bites'''
-    while slef.RFID.inWaiting()>0:
+    '''Esta funcion lee del puerto serial la cantidad k de bites'''
+    while self.RFID.inWaiting()>0:
       return self.RFID.read(k)
       
   def readTag(self):
@@ -41,8 +41,20 @@ class rfid:
     ### b'\x01\x03\x80\x00\x00\x83' COMANDO LECTURA DE CARAVANA
     self.write(b'\x01\x03\x80\x00\x00\x83')
     time.sleep(1)
-    carav = self.read(40) #40 es el valor con el probe la lectura y anduvo
-    numCarav = 0 # Procesar el valor de la caravana para retornar un valor util para el operador
+    read = self.read(40) #40 es el valor con el probe la lectura y anduvo
+    out2 =[bin(ord(c)) for c in read]
+    print out2
+    if len(out2)>13:
+      concat = int(out2[9][4:10].zfill(6)+out2[10][2:10].zfill(8)+out2[11][2:10].zfill(8)+out2[12][2:10].zfill(8)+out2[13][2:10].zfill(8),2)
+      print concat
+      pais = int(out2[8][2:10].zfill(8)+out2[9][2:4].zfill(2),2)
+      print pais
+      carav = "Lectura: "
+      for d in out2:
+        carav = carav + "/"+ d 
+      return carav
+    else:
+      return 0
 
   def close(self):
     '''Esta funcion cierra la conexion serial'''
