@@ -22,7 +22,7 @@ class ST7920:
 		self.set_rotation(0) # rotate to 0 degrees
 		
 		self.fontsheet = self.load_font_sheet('fontsheet.png', 6, 8)
-		#self.fontsheet = self.load_font_sheet('fontsheetB.png', 6, 8)		
+		self.fontsheetB = self.load_font_sheet('fontsheetC.png', 10, 16)		
 		self.clear()
 		self.redraw()
 	
@@ -119,6 +119,22 @@ class ST7920:
 		for c in s:
 			try:
 				font, cw, ch = self.fontsheet
+				char = font[ord(c)]
+				sy = 0
+				for row in char:
+					sx = 0
+					for px in row:
+						self.plot(x+sx, y+sy, px == 1)
+						sx += 1
+					sy += 1
+			except KeyError:
+				pass
+			x += cw
+      
+	def put_textG(self, s, x, y):
+		for c in s:
+			try:
+				font, cw, ch = self.fontsheetB
 				char = font[ord(c)]
 				sy = 0
 				for row in char:
