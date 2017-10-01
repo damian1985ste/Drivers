@@ -43,16 +43,16 @@ class rfid:
     time.sleep(1)
     read = self.read(40) #40 es el valor con el probe la lectura y anduvo
     out2 =[bin(ord(c)) for c in read]
-    print out2
+    #print out2
     if len(out2)>13:
       concat = int(out2[9][4:10].zfill(6)+out2[10][2:10].zfill(8)+out2[11][2:10].zfill(8)+out2[12][2:10].zfill(8)+out2[13][2:10].zfill(8),2)
-      print concat
+      #print concat
       pais = int(out2[8][2:10].zfill(8)+out2[9][2:4].zfill(2),2)
-      print pais
-      carav = "Lectura: "
-      for d in out2:
-        carav = carav + "/"+ d 
-      return carav
+      #print pais
+      #carav = "Lectura: "
+      #for d in out2:
+      #  carav = carav + "/"+ d 
+      return(pais,concat)
     else:
       return 0
 
