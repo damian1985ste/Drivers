@@ -41,7 +41,7 @@ class rfid:
     ### b'\x01\x03\x80\x00\x00\x83' COMANDO LECTURA DE CARAVANA
     self.write(b'\x01\x03\x80\x00\x00\x83')
     time.sleep(1)
-    read = self.read(40) #40 es el valor con el probe la lectura y anduvo
+    read = self.read(14) #40 es el valor con el probe la lectura y anduvo
     out2 =[bin(ord(c)) for c in read]
     #print out2
     if len(out2)>13:
