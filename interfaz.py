@@ -27,6 +27,9 @@ class interfazDR:
 		return(self.rfid.readTag())
 		
 	#FUNCIONES ASOCIADAS A EL DISPLAY
+	def DP_send(self, rs, rw, cmds):
+		return(self.disp.send(rs, rw, cmds))
+	
 	def DP_clear(self):
 		return(self.disp.clear())
 		
