@@ -5,7 +5,8 @@ import serial
 class rfid:
   def __init__(self):
     '''Esta funcion inicializa la conexion serial al rfid'''
-    self.RFID = serial.Serial(
+    ## ¿ES NECESARIO MANEJAR ERRORES?
+	self.RFID = serial.Serial(
       port='/dev/ttyACM0',
       baudrate=9600,
       stopbits=serial.STOPBITS_ONE,
@@ -27,12 +28,14 @@ class rfid:
     '''Esta funcion escribe en el puerto serial del rfid un comando 
     wordHex en hexadecimal'''
     return self.RFID.write(wordHex)
-    #se puede evaluar devolver valor si falla la escritura
+    ## ¿ES NECESARIO MANEJAR ERRORES?
+	#se puede evaluar devolver valor si falla la escritura
     
   def read(self,k):
     '''Esta funcion lee del puerto serial la cantidad k de bites'''
     while self.RFID.inWaiting()>0:
       return self.RFID.read(k)
+	## ¿ES NECESARIO MANEJAR ERRORES?
       
   def readTag(self):
     '''Esta funcion envia al rfid el comando de lectura de caravanas
@@ -44,7 +47,8 @@ class rfid:
     read = self.read(15) #40 es el valor con el probe la lectura y anduvo
     out2 =[bin(ord(c)) for c in read]
     #print out2
-    if len(out2)>13:
+    ## ¿ES NECESARIO MANEJAR ERRORES?
+	if len(out2)>13:
       concat = int(out2[9][4:10].zfill(6)+out2[10][2:10].zfill(8)+out2[11][2:10].zfill(8)+out2[12][2:10].zfill(8)+out2[13][2:10].zfill(8),2)
       #print concat
       pais = int(out2[8][2:10].zfill(8)+out2[9][2:4].zfill(2),2)
